@@ -24,6 +24,11 @@ public class SenderTest {
     }
 
     @Test
+    public void topicSender() {
+        sender.topicSender();
+    }
+
+    @Test
     public void fanoutSender() {
         sender.fanoutSender();
     }

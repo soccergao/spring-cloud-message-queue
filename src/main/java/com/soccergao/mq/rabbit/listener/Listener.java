@@ -26,6 +26,11 @@ public class Listener {
         throw new NullPointerException();
     }
 
+    @RabbitListener(queues = Constant.TOPIC_QUEUE)
+    public void topicListener(String message) {
+        System.out.println(message);
+    }
+
     @RabbitListener(queues = Constant.FANOUT_QUEUE_ONE)
     public void fanoutListener_one(String message) {
         System.out.println("listener one: " + message);

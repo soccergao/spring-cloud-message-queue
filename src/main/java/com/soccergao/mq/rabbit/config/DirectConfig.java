@@ -29,7 +29,7 @@ public class DirectConfig {
 //    }
 
     @Bean
-    public Queue queue() {
+    public Queue directQueue() {
         return QueueBuilder
                 .durable(Constant.DIRECT_QUEUE)
                 .withArgument(Constant.X_DEAD_LETTER_EXCHANGE, Constant.DIRECT_EXCHANGE_DXL)
@@ -38,7 +38,7 @@ public class DirectConfig {
     }
 
     @Bean
-    public Exchange dxlExchange() {
+    public Exchange directDxlExchange() {
         return ExchangeBuilder
                 .directExchange(Constant.DIRECT_EXCHANGE_DXL)
 //                .durable(true) //默认为true
@@ -46,17 +46,17 @@ public class DirectConfig {
     }
 
     @Bean
-    public Queue dxlQueue() {
+    public Queue directDxlQueue() {
         return QueueBuilder
                 .durable(Constant.DIRECT_QUEUE_DXL)
                 .build();
     }
 
     @Bean
-    public Binding dxlBinding() {
+    public Binding directDxlBinding() {
         return BindingBuilder
-                .bind(dxlQueue())
-                .to(dxlExchange())
+                .bind(directDxlQueue())
+                .to(directDxlExchange())
                 .with(Constant.DIRECT_ROUTING_KEY_DXL)
                 .noargs();
     }

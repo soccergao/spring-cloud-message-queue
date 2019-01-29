@@ -8,35 +8,35 @@ import org.springframework.context.annotation.Configuration;
 public class FanoutConfig {
 
     @Bean
-    public FanoutExchange exchange() {
+    public FanoutExchange fanoutExchange() {
         return new FanoutExchange(Constant.FANOUT_EXCHANGE);
     }
 
     @Bean
-    public Queue queueOne() {
+    public Queue fanoutQueueOne() {
         return QueueBuilder
                 .durable(Constant.FANOUT_QUEUE_ONE)
                 .build();
     }
 
     @Bean
-    public Queue queueTwo() {
+    public Queue fanoutQueueTwo() {
         return QueueBuilder
                 .durable(Constant.FANOUT_QUEUE_TWO)
                 .build();
     }
 
     @Bean
-    public Binding bindingOne() {
+    public Binding fanoutBindingOne() {
         return BindingBuilder
-                .bind(queueOne())
-                .to(exchange());
+                .bind(fanoutQueueOne())
+                .to(fanoutExchange());
     }
 
     @Bean
-    public Binding bindingTwo() {
+    public Binding fanoutBindingTwo() {
         return BindingBuilder
-                .bind(queueTwo())
-                .to(exchange());
+                .bind(fanoutQueueTwo())
+                .to(fanoutExchange());
     }
 }

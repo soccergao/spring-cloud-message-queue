@@ -18,4 +18,9 @@ public class Constant {
     public static final String FANOUT_EXCHANGE = "fanout.exchange";
     public static final String FANOUT_QUEUE_ONE = "fanout.queue.one";
     public static final String FANOUT_QUEUE_TWO = "fanout.queue.two";
+
+    /** topic exchange */
+    public static final String TOPIC_EXCHANGE = "topic.exchange";
+    public static final String TOPIC_ROUTING_KEY = "topic.routing.key.#";
+    public static final String TOPIC_QUEUE = "topic.queue";
 }

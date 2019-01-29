@@ -21,6 +21,12 @@ public class Sender {
         amqpTemplate.convertAndSend(Constant.DIRECT_QUEUE, userRequest);    // routing_key默认与queue名字相同
     }
 
+    public void topicSender() {
+        String message = "topic sender";
+        String routingKey = "topic.routing.key.aaa";
+        amqpTemplate.convertAndSend(Constant.TOPIC_EXCHANGE, routingKey, message);    // routing_key默认与queue名字相同
+    }
+
     public void fanoutSender() {
         String message = "fanout sender";
         String routingKey = "";
