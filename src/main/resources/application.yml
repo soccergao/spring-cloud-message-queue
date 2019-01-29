@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: spring-cloud-message-queue
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+    listener:
+      simple:
+        #        default-requeue-rejected: false # Whether rejected deliveries are re-queued by default.
+        retry:
+          enabled: true # Whether publishing retries are enabled. 默认为false
+          max-attempts: 3 # Maximum number of attempts to deliver a message. 默认为3
+          initial-interval: 1000ms # Duration between the first and second attempt to deliver a message. 默认为1000ms
+# 1.default-requeue-rejected=true或不配置，retry不配置 结果：会一直放回队列重试
+# 2.default-requeue-rejected=false直接丢弃 如果设置了死信队列会扔到死信队列
+# 3.retry设置了重试 会根据配置重试后丢弃 如果设置了死信队列会扔到死信队列 default-requeue-rejected设置无效果
+
+server:
+  port: 8090
+  servlet:
+    context-path: /${spring.application.name}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:1111/eureka
