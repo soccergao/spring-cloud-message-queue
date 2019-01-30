@@ -9,14 +9,23 @@ spring:
     virtual-host: /
     listener:
       simple:
-        #        default-requeue-rejected: false # Whether rejected deliveries are re-queued by default.
+#        default-requeue-rejected: false # Whether rejected deliveries are re-queued by default.
         retry:
-          enabled: true # Whether publishing retries are enabled. Ĭ��Ϊfalse
-          max-attempts: 3 # Maximum number of attempts to deliver a message. Ĭ��Ϊ3
-          initial-interval: 1000ms # Duration between the first and second attempt to deliver a message. Ĭ��Ϊ1000ms
-# 1.default-requeue-rejected=true�����ã�retry������ �������һֱ�Żض�������
-# 2.default-requeue-rejected=falseֱ�Ӷ��� ������������Ŷ��л��ӵ����Ŷ���
-# 3.retry���������� ������������Ժ��� ������������Ŷ��л��ӵ����Ŷ��� default-requeue-rejected������Ч��
+          enabled: true # Whether publishing retries are enabled. 默认为false
+          max-attempts: 3 # Maximum number of attempts to deliver a message. 默认为3
+          initial-interval: 1000ms # Duration between the first and second attempt to deliver a message. 默认为1000ms
+#        acknowledge-mode: manual # NONE：自动确认, AUTO：根据情况确认, MANUAL：手动确认
+
+# 1.default-requeue-rejected=true或不配置，retry不配置 结果：会一直放回队列重试
+# 2.default-requeue-rejected=false直接丢弃 如果设置了死信队列会扔到死信队列
+# 3.retry设置了重试 会根据配置重试后丢弃 如果设置了死信队列会扔到死信队列 default-requeue-rejected设置无效果
+
+#  关于AcknowledgeMode.AUTO：
+#  如果消息成功被消费（成功的意思是在消费的过程中没有抛出异常），则自动确认
+#  当抛出 AmqpRejectAndDontRequeueException 异常的时候，则消息会被拒绝，且 requeue = false（不重新入队列）
+#  当抛出 ImmediateAcknowledgeAmqpException 异常，则消费者会被确认
+#  其他的异常，则消息会被拒绝，且 requeue = true（如果此时只有一个消费者监听该队列，则有发生死循环的风险，多消费端也会造成资源的极大浪费，这个在开发过程中一定要避免的）。可以通过 setDefaultRequeueRejected（默认是true）去设置
+
 
 server:
   port: 8090
