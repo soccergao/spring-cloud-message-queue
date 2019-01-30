@@ -15,6 +15,7 @@ spring:
           max-attempts: 3 # Maximum number of attempts to deliver a message. 默认为3
           initial-interval: 1000ms # Duration between the first and second attempt to deliver a message. 默认为1000ms
 #        acknowledge-mode: manual # NONE：自动确认, AUTO：根据情况确认, MANUAL：手动确认
+#      type: simple  # 默认为simple, 也可以设置成direct, SimpleRabbitListenerContainerFactory vs DirectRabbitListenerContainerFactory 的区别请google
 
 # 1.default-requeue-rejected=true或不配置，retry不配置 结果：会一直放回队列重试
 # 2.default-requeue-rejected=false直接丢弃 如果设置了死信队列会扔到死信队列
