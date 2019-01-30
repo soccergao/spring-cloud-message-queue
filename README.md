@@ -1,4 +1,4 @@
-### server-url: http://localhost:8091/spring-cloud-rabbitmq-listener/
+### server-url: http://localhost:8090/spring-cloud-rabbitmq-listener/
 ### rabbit-url: http://localhost:15672/
 ### rabbit-username: guest
 ### rabbit-password: guest
